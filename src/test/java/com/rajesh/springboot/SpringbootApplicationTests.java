@@ -37,9 +37,19 @@ public class SpringbootApplicationTests {
 
     ResponseEntity<Personal> rm = testRestTemplate.getForEntity("/client/12345", Personal.class);
 
-
     System.out.println("inside junit" + rm);
 
-    Assert.assertEquals("rajeshketha", rm.getBody().getEmail());
+    Assert.assertEquals("rjeshketha", rm.getBody().getEmail());
+  }
+
+  @Test
+  public void clientCreation() {
+
+    Mockito.when(
+            restTemplate.getForObject("http://localhost:8080/client-service/12345", String.class))
+        .thenReturn("Helloworld");
+
+    ResponseEntity<String> rm = testRestTemplate.getForEntity("/address/12345", String.class);
+    System.out.println(rm.getBody());
   }
 }
